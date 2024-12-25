@@ -5,13 +5,11 @@ spring:
 eureka:
   instance:
     hostname: localhost
-
   client:
-    register-with-eureka: true
-    fetch-registry: false
     service-url:
       defaultZone: http://${SERVICE_DISCOVERY_HOST}:${SERVICE_DISCOVERY_PORT}/eureka
-
+    register-with-eureka: true
+    fetch-registry: false
 
 server:
   port: ${SERVICE_DISCOVERY_PORT}
