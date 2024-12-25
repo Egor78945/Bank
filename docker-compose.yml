@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  service-discovery:
+    container_name: service-discovery
+    build:
+      context: ./service-discovery
+      dockerfile: Dockerfile
+      args:
+        JAVA_VERSION: ${JAVA_VERSION}
+        SERVICE_DISCOVERY_PORT: ${SERVICE_DISCOVERY_PORT}
+    environment:
+      - SERVICE_DISCOVERY_APPLICATION_NAME=${SERVICE_DISCOVERY_APPLICATION_NAME}
+      - SERVICE_DISCOVERY_HOST=${SERVICE_DISCOVERY_HOST}
+      - SERVICE_DISCOVERY_PORT=${SERVICE_DISCOVERY_PORT}
+      - JAVA_VERSION=${JAVA_VERSION}
+    restart: on-failure
+    ports:
+      - ${SERVICE_DISCOVERY_PORT}:${SERVICE_DISCOVERY_PORT}
