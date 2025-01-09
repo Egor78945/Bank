@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: ${USER_DATABASE_SERVICE_APPLICATION_NAME}
+  jooq:
+    sql-dialect: postgres
+  liquibase:
+    change-log: db/changelog/main/main-changelog.yml
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${SERVICE_DISCOVERY_HOST}:${SERVICE_DISCOVERY_PORT}/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+server:
+  port: ${USER_DATABASE_SERVICE_PORT}
+

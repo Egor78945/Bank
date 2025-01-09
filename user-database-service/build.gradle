@@ -1,7 +1,16 @@
+buildscript {
+    configurations["classpath"].resolutionStrategy.eachDependency {
+        if (requested.group.startsWith("org.jooq") && requested.name.startsWith("jooq")) {
+            useVersion("3.17.3")
+        }
+    }
+}
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.1'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'nu.studer.jooq' version '9.0'
 }
 
 group = 'com.example'
@@ -28,14 +37,20 @@ ext {
 }
 
 dependencies {
+    implementation 'org.jooq:jooq-codegen:3.19.16'
     implementation 'org.springframework.boot:spring-boot-starter-jooq'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.liquibase:liquibase-core'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
     compileOnly 'org.projectlombok:lombok'
+
     runtimeOnly 'org.postgresql:postgresql'
+
     annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
@@ -45,6 +60,67 @@ dependencyManagement {
     }
 }
 
+import org.jooq.meta.jaxb.Logging
+
+jooq {
+    version = '3.19.16'
+    edition = nu.studer.gradle.jooq.JooqEdition.OSS
+
+    configurations {
+        main {
+            generateSchemaSourceOnCompilation = true
+
+            generationTool {
+                logging = Logging.WARN
+                jdbc {
+                    driver = "org.postgresql.Driver"
+                    url = "jdbc:postgresql://${System.getenv("POSTGRES_USER_HOST")}:${System.getenv("POSTGRES_USER_PORT")}/${System.getenv("POSTGRES_USER_DATABASE_NAME")}"
+                    user = "${System.getenv("POSTGRES_USER_USERNAME")}"
+                    password = "${System.getenv("POSTGRES_USER_PASSWORD")}"
+
+                }
+                generator {
+                    name = 'org.jooq.codegen.DefaultGenerator'
+                    database {
+                        name = 'org.jooq.meta.postgres.PostgresDatabase'
+                        inputSchema = 'public'
+                        forcedTypes {
+                            forcedType {
+                                name = 'varchar'
+                                includeExpression = '.*'
+                                includeTypes = 'JSONB?'
+                            }
+                            forcedType {
+                                name = 'varchar'
+                                includeExpression = '.*'
+                                includeTypes = 'INET'
+                            }
+                        }
+                    }
+                    generate {
+                        deprecated = false
+                        records = true
+                        immutablePojos = true
+                        fluentSetters = true
+                    }
+                    target {
+                        packageName = 'nu.studer.sample'
+                        directory = 'build/generated/jooq/main'
+                    }
+                    strategy.name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+                }
+            }
+        }
+    }
+}
+
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.named('generateJooq').configure {
+    allInputsDeclared = true
+    launcher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
