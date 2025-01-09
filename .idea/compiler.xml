@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="account-api-service" target="17" />
+      <module name="keycloak-user-spi" target="17" />
+      <module name="keycloak-user-spi.main" target="17" />
+      <module name="keycloak-user-spi.test" target="17" />
+      <module name="user-database-service" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
