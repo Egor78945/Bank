@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: v4-1
+      author: test
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: ${USER_DATABASE_SERVICE_TABLE_USER_DETAILS}
+      changes:
+        - createTable:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_USER_DETAILS}
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+                  autoIncrement: true
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: age
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: registered_at
+                  type: timestamp
+                  constraints:
+                    nullable: false

@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: v6-1
+      author: test
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: ${USER_DATABASE_SERVICE_TABLE_USER_CARDS}
+      changes:
+        - createTable:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_USER_CARDS}
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+                    primaryKey: true
+                  autoIncrement: true
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: users_id_card_fk
+                    referencedTableName: ${USER_DATABASE_SERVICE_TABLE_USERS}
+                    referencedColumnNames: id
+              - column:
+                  name: card_type_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: card_type_id_card_fk
+                    referencedTableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
+                    referencedColumnNames: id
+

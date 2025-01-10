@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: v2-1
+      author: test
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: ${USER_DATABASE_SERVICE_TABLE_ROLES}
+      changes:
+        - createTable:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_ROLES}
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    unique: true
+                  autoIncrement: true
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+        - insert:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_ROLES}
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: ${USER_DATABASE_SERVICE_USER_ROLE_1}
+        - insert:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_ROLES}
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: ${USER_DATABASE_SERVICE_USER_ROLE_2}

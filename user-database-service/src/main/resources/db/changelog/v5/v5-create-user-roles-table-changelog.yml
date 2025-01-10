@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: v5-1
+      author: test
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: ${USER_DATABASE_SERVICE_TABLE_USER_ROLES}
+      changes:
+        - createTable:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_USER_ROLES}
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+                    primaryKey: true
+                  autoIncrement: true
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: users_id_role_fk
+                    referencedTableName: ${USER_DATABASE_SERVICE_TABLE_USERS}
+                    referencedColumnNames: id
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: roles_id_role_fk
+                    referencedTableName: ${USER_DATABASE_SERVICE_TABLE_ROLES}
+                    referencedColumnNames: id

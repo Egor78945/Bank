@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: v3-1
+      author: test
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
+      changes:
+        - createTable:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+                    primaryKey: true
+                  autoIncrement: true
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+        - insert:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: ${USER_DATABASE_SERVICE_CARD_TYPE_1}
+        - insert:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: ${USER_DATABASE_SERVICE_CARD_TYPE_2}

@@ -1,10 +1,14 @@
 spring:
   application:
     name: ${USER_DATABASE_SERVICE_APPLICATION_NAME}
-  jooq:
-    sql-dialect: postgres
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${POSTGRES_USER_HOST}:${POSTGRES_USER_PORT}/${POSTGRES_USER_DATABASE_NAME}
+    username: ${POSTGRES_USER_USERNAME}
+    password: ${POSTGRES_USER_PASSWORD}
   liquibase:
     change-log: db/changelog/main/main-changelog.yml
+    enabled: true
 
 eureka:
   client:
