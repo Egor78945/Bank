@@ -3,9 +3,9 @@ spring:
     name: ${USER_DATABASE_SERVICE_APPLICATION_NAME}
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${POSTGRES_USER_HOST}:${POSTGRES_USER_PORT}/${POSTGRES_USER_DATABASE_NAME}
-    username: ${POSTGRES_USER_USERNAME}
-    password: ${POSTGRES_USER_PASSWORD}
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
   liquibase:
     change-log: db/changelog/main/main-changelog.yml
     enabled: true
@@ -16,6 +16,7 @@ eureka:
       defaultZone: http://${SERVICE_DISCOVERY_HOST}:${SERVICE_DISCOVERY_PORT}/eureka
     register-with-eureka: true
     fetch-registry: true
+
 
 server:
   port: ${USER_DATABASE_SERVICE_PORT}

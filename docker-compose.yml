@@ -1,4 +1,8 @@
-version: '3.7'
+version: '3.9'
+
+networks:
+  test:
+    driver: bridge
 
 services:
   service-discovery:
@@ -9,14 +13,13 @@ services:
       args:
         JAVA_VERSION: ${JAVA_VERSION}
         SERVICE_DISCOVERY_PORT: ${SERVICE_DISCOVERY_PORT}
-    environment:
-      - JAVA_VERSION=${JAVA_VERSION}
-      - SERVICE_DISCOVERY_APPLICATION_NAME=${SERVICE_DISCOVERY_APPLICATION_NAME}
-      - SERVICE_DISCOVERY_HOST=${SERVICE_DISCOVERY_HOST}
-      - SERVICE_DISCOVERY_PORT=${SERVICE_DISCOVERY_PORT}
+    env_file:
+      - .env
     restart: on-failure
     ports:
       - ${SERVICE_DISCOVERY_PORT}:${SERVICE_DISCOVERY_PORT}
+    networks:
+      - test
 
   api-gateway-service:
     container_name: ${API_GATEWAY_SERVICE_APPLICATION_NAME}
@@ -38,6 +41,8 @@ services:
       - service-discovery
     ports:
       - ${API_GATEWAY_SERVICE_PORT}:${API_GATEWAY_SERVICE_PORT}
+    networks:
+      - test
 
   user-database-service:
     container_name: ${USER_DATABASE_SERVICE_APPLICATION_NAME}
@@ -45,7 +50,11 @@ services:
       context: ./user-database-service
       dockerfile: Dockerfile
       args:
-        JAVA_VERSION: ${JAVA_VERSION}
+        POSTGRES_DB: ${POSTGRES_USER_DATABASE_NAME}
+        POSTGRES_HOST: ${POSTGRES_USER_HOST}
+        POSTGRES_PORT: ${POSTGRES_USER_PORT}
+        POSTGRES_USERNAME: ${POSTGRES_USER_USERNAME}
+        POSTGRES_PASSWORD: ${POSTGRES_USER_PASSWORD}
     environment:
       - SERVICE_DISCOVERY_HOST=${SERVICE_DISCOVERY_HOST}
       - SERVICE_DISCOVERY_PORT=${SERVICE_DISCOVERY_PORT}
@@ -62,12 +71,17 @@ services:
       - USER_DATABASE_SERVICE_USER_ROLE_2=${USER_DATABASE_SERVICE_USER_ROLE_2}
       - USER_DATABASE_SERVICE_CARD_TYPE_1=${USER_DATABASE_SERVICE_CARD_TYPE_1}
       - USER_DATABASE_SERVICE_CARD_TYPE_2=${USER_DATABASE_SERVICE_CARD_TYPE_2}
-      - POSTGRES_USER_HOST=${POSTGRES_USER_HOST}
-      - POSTGRES_USER_PORT=${POSTGRES_USER_PORT}
-      - POSTGRES_USER_DATABASE_NAME=${POSTGRES_USER_DATABASE_NAME}
-      - POSTGRES_USER_USERNAME=${POSTGRES_USER_USERNAME}
-      - POSTGRES_USER_PASSWORD=${POSTGRES_USER_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_USER_HOST}
+      - POSTGRES_PORT=${POSTGRES_USER_PORT}
+      - POSTGRES_DB=${POSTGRES_USER_DATABASE_NAME}
+      - POSTGRES_USERNAME=${POSTGRES_USER_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_USER_PASSWORD}
+    depends_on:
+      - service-discovery
+      - postgres-users
     restart: on-failure
+    networks:
+      - test
 
   postgres-users:
     container_name: ${POSTGRES_USER_HOST}
@@ -79,3 +93,5 @@ services:
     restart: on-failure
     ports:
       - ${POSTGRES_USER_PORT}:${POSTGRES_USER_PORT}
+    networks:
+      - test

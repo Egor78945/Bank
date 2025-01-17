@@ -1,7 +1,21 @@
-ARG JAVA_VERSION
+FROM openjdk:17-jdk-alpine
 
-FROM openjdk:${JAVA_VERSION}
+WORKDIR /app
 
-COPY build/libs/user-database-service-0.0.1-SNAPSHOT.jar app.jar
+ARG POSTGRES_DB=${POSTGRES_DB}
+ARG POSTGRES_HOST=${POSTGRES_HOST}
+ARG POSTGRES_PORT=${POSTGRES_PORT}
+ARG POSTGRES_USERNAME=${POSTGRES_USERNAME}
+ARG POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY src src
+
+RUN chmod +x gradlew
+
+RUN ./gradlew clean build -x generateJooq -x test
+
+ENTRYPOINT ["sh", "-c", "./gradlew update && ./gradlew generateJooq && java -jar build/libs/*-SNAPSHOT.jar"]
