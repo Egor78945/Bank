@@ -95,3 +95,27 @@ services:
       - ${POSTGRES_USER_PORT}:${POSTGRES_USER_PORT}
     networks:
       - test
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.0
+    container_name: ${KEYCLOAK_SERVER_HOST}
+    command:
+      - start-dev
+      - --import-realm
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=${KEYCLOAK_ADMIN_NAME}
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://${POSTGRES_USER_HOST}:${POSTGRES_USER_PORT}/${POSTGRES_USER_DATABASE_NAME}
+      - KC_DB_USERNAME=${POSTGRES_USER_USERNAME}
+      - KC_DB_PASSWORD=${POSTGRES_USER_PASSWORD}
+      - KC_HTTP_PORT=${KEYCLOAK_SERVER_PORT}
+    volumes:
+      - ./keycloak/configuration/realm/bank/realm-config.json:/opt/keycloak/data/import/realm-config.json:ro
+    ports:
+      - ${KEYCLOAK_SERVER_PORT}:${KEYCLOAK_SERVER_PORT}
+    restart: on-failure
+    depends_on:
+      - postgres-users
+    networks:
+      - test
