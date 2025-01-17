@@ -119,3 +119,21 @@ services:
       - postgres-users
     networks:
       - test
+
+  user-account-service:
+    build:
+      context: ./user-account-service
+      dockerfile: Dockerfile
+      args:
+        JAVA_VERSION: ${JAVA_VERSION}
+    env_file:
+      - .env
+    ports:
+      - ${USER_ACCOUNT_SERVICE_PORT}:${USER_ACCOUNT_SERVICE_PORT}
+    restart: on-failure
+    networks:
+      - test
+    depends_on:
+      - service-discovery
+      - user-database-service
+      - keycloak
