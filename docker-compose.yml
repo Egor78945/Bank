@@ -134,6 +134,23 @@ services:
     networks:
       - test
     depends_on:
-      - service-discovery
+      - api-gateway-service
       - user-database-service
+      - keycloak
+
+  authentication-service:
+    build:
+      context: ./authentication-service
+      dockerfile: Dockerfile
+      args:
+        JAVA_VERSION: ${JAVA_VERSION}
+    env_file:
+      - .env
+    ports:
+      - ${AUTHENTICATION_SERVICE_PORT}:${AUTHENTICATION_SERVICE_PORT}
+    restart: on-failure
+    networks:
+      - test
+    depends_on:
+      - api-gateway-service
       - keycloak
