@@ -29,13 +29,8 @@ services:
       args:
         JAVA_VERSION: ${JAVA_VERSION}
         API_GATEWAY_SERVICE_PORT: ${API_GATEWAY_SERVICE_PORT}
-    environment:
-      - JAVA_VERSION=${JAVA_VERSION}
-      - API_GATEWAY_SERVICE_APPLICATION_NAME=${API_GATEWAY_SERVICE_APPLICATION_NAME}
-      - API_GATEWAY_SERVICE_HOST=${API_GATEWAY_SERVICE_HOST}
-      - API_GATEWAY_SERVICE_PORT=${API_GATEWAY_SERVICE_PORT}
-      - SERVICE_DISCOVERY_HOST=${SERVICE_DISCOVERY_HOST}
-      - SERVICE_DISCOVERY_PORT=${SERVICE_DISCOVERY_PORT}
+    env_file:
+      - .env
     restart: on-failure
     depends_on:
       - service-discovery
@@ -146,8 +141,6 @@ services:
         JAVA_VERSION: ${JAVA_VERSION}
     env_file:
       - .env
-    ports:
-      - ${AUTHENTICATION_SERVICE_PORT}:${AUTHENTICATION_SERVICE_PORT}
     restart: on-failure
     networks:
       - test

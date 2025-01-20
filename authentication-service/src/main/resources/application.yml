@@ -1,3 +1,13 @@
 spring:
   application:
     name: ${AUTHENTICATION_SERVICE_APPLICATION_NAME}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${SERVICE_DISCOVERY_HOST}:${SERVICE_DISCOVERY_PORT}/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+server:
+  port: ${AUTHENTICATION_SERVICE_PORT}

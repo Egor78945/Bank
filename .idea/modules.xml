@@ -5,7 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/Bank.iml" filepath="$PROJECT_DIR$/Bank.iml" />
       <module fileurl="file://$PROJECT_DIR$/account-api-service/account-api-service.iml" filepath="$PROJECT_DIR$/account-api-service/account-api-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/account-api-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/account-api-service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/authentication-service/authentication-service.iml" filepath="$PROJECT_DIR$/authentication-service/authentication-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/authentication-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/authentication-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-account-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-account-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-database-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-database-service.main.iml" />
     </modules>
   </component>

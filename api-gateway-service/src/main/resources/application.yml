@@ -1,6 +1,18 @@
 spring:
   application:
     name: ${API_GATEWAY_SERVICE_APPLICATION_NAME}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://${KEYCLOAK_SERVER_HOST}:${KEYCLOAK_SERVER_PORT}/realms/${KEYCLOAK_REALM_BANK}
+  cloud:
+    gateway:
+      routes:
+        - id: authentication-service
+          uri: lb://${AUTHENTICATION_SERVICE_APPLICATION_NAME}
+          predicates:
+            - Path=/auth/**
 
 eureka:
   client:

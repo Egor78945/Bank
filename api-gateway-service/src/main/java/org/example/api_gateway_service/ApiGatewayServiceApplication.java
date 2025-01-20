@@ -9,6 +9,7 @@ public class ApiGatewayServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ApiGatewayServiceApplication.class, args);
+        System.out.println(System.getenv("API_GATEWAY_SERVICE_PORT"));
     }
 
 }
