@@ -2,3 +2,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: ./v3-create-card-types-table-changelog.yml
+  - include:
+      relativeToChangelogFile: true
+      file: ./v3-fill-card-types-table-changelog.yml

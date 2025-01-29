@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: v3-2
+      author: test
+      preConditions:
+        - onFail: MARK_RAN
+          tableExists:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
+      changes:
+        - insert:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
+            columns:
+              - column:
+                  name: name
+                  value: ${USER_DATABASE_SERVICE_CARD_TYPE_1}
+        - insert:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
+            columns:
+              - column:
+                  name: name
+                  value: ${USER_DATABASE_SERVICE_CARD_TYPE_2}

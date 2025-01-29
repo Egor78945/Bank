@@ -16,6 +16,6 @@ COPY src src
 
 RUN chmod +x gradlew
 
-RUN ./gradlew clean build -x generateJooq -x test
+RUN ./gradlew build -x generateJooq -x test
 
 ENTRYPOINT ["sh", "-c", "./gradlew update && ./gradlew generateJooq && java -jar build/libs/*-SNAPSHOT.jar"]

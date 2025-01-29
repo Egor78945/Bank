@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: v2-2
+      author: test
+      preConditions:
+        - onFail: MARK_RAN
+          tableExists:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_ROLES}
+      changes:
+        - insert:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_ROLES}
+            columns:
+              - column:
+                  name: name
+                  value: ${USER_DATABASE_SERVICE_USER_ROLE_1}
+        - insert:
+            tableName: ${USER_DATABASE_SERVICE_TABLE_ROLES}
+            columns:
+              - column:
+                  name: name
+                  value: ${USER_DATABASE_SERVICE_USER_ROLE_2}

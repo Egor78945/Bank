@@ -49,3 +49,11 @@ databaseChangeLog:
                   type: timestamp
                   constraints:
                     nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: user_details_user_fk
+                    referencedTableName: ${USER_DATABASE_SERVICE_TABLE_USERS}
+                    referencedColumnNames: id
