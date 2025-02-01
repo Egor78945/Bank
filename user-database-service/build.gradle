@@ -85,7 +85,7 @@ jooq {
                 logging = Logging.DEBUG
                 jdbc {
                     driver = 'org.postgresql.Driver'
-                    url = "jdbc:postgresql://${System.getenv('POSTGRES_USER_HOST')}:${System.getenv('POSTGRES_USER_PORT')}/${System.getenv('POSTGRES_USER_DATABASE_NAME')}"
+                    url = "jdbc:postgresql://${System.getenv('POSTGRES_USER_HOST')}:${System.getenv('POSTGRES_USER_PORT_INNER')}/${System.getenv('POSTGRES_USER_DATABASE_NAME')}"
                     user = "${System.getenv('POSTGRES_USER_USERNAME')}"
                     password = "${System.getenv('POSTGRES_USER_PASSWORD')}"
                     properties {
@@ -135,7 +135,7 @@ tasks.register('update', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     args = [
             "--changeLogFile=src/main/resources/db/changelog/main/main-changelog.yml",
-            "--url=jdbc:postgresql://${System.getenv('POSTGRES_USER_HOST')}:${System.getenv('POSTGRES_USER_PORT')}/${System.getenv('POSTGRES_USER_DATABASE_NAME')}",
+            "--url=jdbc:postgresql://${System.getenv('POSTGRES_USER_HOST')}:${System.getenv('POSTGRES_USER_PORT_INNER')}/${System.getenv('POSTGRES_USER_DATABASE_NAME')}",
             "--username=${System.getenv('POSTGRES_USER_USERNAME')}",
             "--password=${System.getenv('POSTGRES_USER_PASSWORD')}",
             "update"

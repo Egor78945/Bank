@@ -3,7 +3,7 @@ spring:
     name: ${USER_DATABASE_SERVICE_APPLICATION_NAME}
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${POSTGRES_USER_HOST}:${POSTGRES_USER_PORT}/${POSTGRES_USER_DATABASE_NAME}
+    url: jdbc:postgresql://${POSTGRES_USER_HOST}:${POSTGRES_USER_PORT_INNER}/${POSTGRES_USER_DATABASE_NAME}
     username: ${POSTGRES_USER_USERNAME}
     password: ${POSTGRES_USER_PASSWORD}
   liquibase:

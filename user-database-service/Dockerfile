@@ -8,11 +8,7 @@ ARG POSTGRES_USER_PORT
 ARG POSTGRES_USER_USERNAME
 ARG POSTGRES_USER_PASSWORD
 
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
-COPY src src
+COPY . .
 
 RUN chmod +x gradlew
 
