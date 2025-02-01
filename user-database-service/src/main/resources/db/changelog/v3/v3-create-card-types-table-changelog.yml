@@ -25,21 +25,3 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
-        - insert:
-            tableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
-            columns:
-              - column:
-                  name: id
-                  value: 1
-              - column:
-                  name: name
-                  value: ${USER_DATABASE_SERVICE_CARD_TYPE_1}
-        - insert:
-            tableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
-            columns:
-              - column:
-                  name: id
-                  value: 2
-              - column:
-                  name: name
-                  value: ${USER_DATABASE_SERVICE_CARD_TYPE_2}

@@ -25,21 +25,3 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
-        - insert:
-            tableName: ${USER_DATABASE_SERVICE_TABLE_ROLES}
-            columns:
-              - column:
-                  name: id
-                  value: 1
-              - column:
-                  name: name
-                  value: ${USER_DATABASE_SERVICE_USER_ROLE_1}
-        - insert:
-            tableName: ${USER_DATABASE_SERVICE_TABLE_ROLES}
-            columns:
-              - column:
-                  name: id
-                  value: 2
-              - column:
-                  name: name
-                  value: ${USER_DATABASE_SERVICE_USER_ROLE_2}

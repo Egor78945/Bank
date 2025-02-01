@@ -4,8 +4,9 @@ databaseChangeLog:
       author: test
       preConditions:
         - onFail: MARK_RAN
-          tableExists:
-            tableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
+        - sqlCheck:
+            expectedResult: "0"
+            sql: "SELECT COUNT(*) FROM ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}"
       changes:
         - insert:
             tableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
