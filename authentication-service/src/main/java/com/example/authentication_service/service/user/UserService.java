@@ -5,10 +5,6 @@ import com.example.authentication_service.service.security.keycloak.KeycloakServ
 import com.example.authentication_service.service.user.grpc.UserGrpcClientService;
 import com.example.authentication_service.service.user.mapper.grpc.UserDatabaseServiceGrpcMapper;
 import lombok.RequiredArgsConstructor;
-import org.keycloak.admin.client.Keycloak;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,13 +18,11 @@ public class UserService {
     }
 
     public void registerUser(UserRegistrationDTO userRegistrationDTO) {
-        boolean userSaveToDb = userGrpcClientService.registerUser(UserDatabaseServiceGrpcMapper.mapTo(userRegistrationDTO.encodePassword(passwordEncoder().encode(userRegistrationDTO.password())))).getBoolean();
-        if (userSaveToDb) {
+        long savedUserId = userGrpcClientService.registerUser(UserDatabaseServiceGrpcMapper.mapTo(userRegistrationDTO)).getLong();
+        try {
             keycloakService.createUser(userRegistrationDTO.email(), userRegistrationDTO.password(), userRegistrationDTO.name(), userRegistrationDTO.surname());
+        } catch (Exception e) {
+            userGrpcClientService.removeUser(UserDatabaseServiceGrpcMapper.mapTo(savedUserId));
         }
-    }
-
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

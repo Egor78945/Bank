@@ -24,17 +24,17 @@ public class KeycloakService {
     private String getClientSecret(String clientId) {
         Keycloak keycloak = keycloakConfiguration.getKeycloak();
         List<ClientRepresentation> clients = keycloak
-                .realm(keycloakConfiguration.getKEYCLOAK_REALM_NAME())
+                .realm(keycloakConfiguration.getKEYCLOAK_REALM_BANK_NAME())
                 .clients()
                 .findByClientId(clientId);
         if (clients == null || clients.isEmpty()) {
             throw new NullPointerException(String.format("Keycloak client with id %s not found.", clientId));
         }
         ClientRepresentation client = clients.get(0);
-        return keycloak.realm(keycloakConfiguration.getKEYCLOAK_REALM_NAME()).clients().get(client.getId()).getSecret().getValue();
+        return keycloak.realm(keycloakConfiguration.getKEYCLOAK_REALM_BANK_NAME()).clients().get(client.getId()).getSecret().getValue();
     }
 
-    public void createUser(String email, String password, String name, String surname) {
+    public void createUser(String email, String password, String name, String surname) throws Exception {
         UsersResource usersResource = keycloakConfiguration.getUsersResource();
 
         var user = new UserRepresentation();
@@ -46,7 +46,7 @@ public class KeycloakService {
 
         try (Response createUserResponse = usersResource.create(user)) {
             if (createUserResponse.getStatus()/100 != 2) {
-                throw new RuntimeException(String.format("There is a problem while creating an user in realm %s with email %s.", keycloakConfiguration.getKEYCLOAK_REALM_NAME(), email));
+                throw new Exception(String.format("There is a problem while creating an user in realm %s with email %s.", keycloakConfiguration.getKEYCLOAK_REALM_BANK_NAME(), email));
             }
             String path = createUserResponse.getLocation().getPath();
             String createdUserId = path.substring(path.lastIndexOf('/') + 1);

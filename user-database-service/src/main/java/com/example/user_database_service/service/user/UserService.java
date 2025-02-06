@@ -24,4 +24,8 @@ public class UserService {
                 .returning(Tables.USERS.ID).fetchOne()
                 .get(Tables.USERS.ID);
     }
+
+    public void removeUserById(long id){
+        dslContext.deleteFrom(Tables.USERS).where(Tables.USERS.ID.eq(id));
+    }
 }

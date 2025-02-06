@@ -13,4 +13,8 @@ public class UserRoleService {
     public void saveUserRole(Long userId, Long roleId){
         dslContext.insertInto(Tables.USER_ROLES).set(Tables.USER_ROLES.USER_ID, userId).set(Tables.USER_ROLES.ROLE_ID, roleId);
     }
+
+    public void removeUserRoleByUserId(long userId){
+        dslContext.deleteFrom(Tables.USER_ROLES).where(Tables.USER_ROLES.USER_ID.eq(userId));
+    }
 }

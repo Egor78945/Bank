@@ -33,6 +33,7 @@ message UserCredentialsMessage {
 
 service UserService {
   rpc existsUserByEmail(StringMessage) returns (BooleanMessage);
-  rpc registerUser(UserMessage) returns (BooleanMessage);
+  rpc registerUser(UserMessage) returns (LongMessage);
   rpc getUserCredentialsByEmail(StringMessage) returns (UserCredentialsMessage);
+  rpc removeUserById(LongMessage) returns (BooleanMessage);
 }

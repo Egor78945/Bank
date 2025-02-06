@@ -22,4 +22,10 @@ public class UserDatabaseServiceGrpcMapper {
     public static boolean mapTo(UserDatabaseService.BooleanMessage bool){
         return bool.getBoolean();
     }
+
+    public static UserDatabaseService.LongMessage mapTo(long lonk){
+        return UserDatabaseService.LongMessage.newBuilder()
+                .setLong(lonk)
+                .build();
+    }
 }

@@ -22,15 +22,19 @@ keycloak:
   realm:
     bank:
       name: ${KEYCLOAK_REALM_BANK}
-    role:
-      user: ${USER_DATABASE_SERVICE_USER_ROLE_1}
-      admin: ${USER_DATABASE_SERVICE_USER_ROLE_2}
+      role:
+        user: ${USER_DATABASE_SERVICE_USER_ROLE_1}
+        admin: ${USER_DATABASE_SERVICE_USER_ROLE_2}
+    master:
+      name: ${KEYCLOAK_REALM_MASTER}
   admin:
     name: ${KEYCLOAK_ADMIN_NAME}
     password: ${${KEYCLOAK_ADMIN_PASSWORD}
   client:
     authentication-service:
       id: ${KEYCLOAK_CLIENT_AUTHENTICATION_SERVICE_ID}
+    admin:
+      id: ${KEYCLOAK_CLIENT_ADMIN_ID}
 
 
 server:

@@ -40,4 +40,10 @@ public class UserDatabaseServiceGrpcMapper {
                 .addAllRoles(List.of(UserRole.ROLE_USER.getId()))
                 .build();
     }
+
+    public static UserDatabaseService.LongMessage mapTo(long lonk){
+        return UserDatabaseService.LongMessage.newBuilder()
+                .setLong(lonk)
+                .build();
+    }
 }
