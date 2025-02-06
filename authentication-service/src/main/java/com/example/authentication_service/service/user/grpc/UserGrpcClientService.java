@@ -16,7 +16,7 @@ public class UserGrpcClientService {
         return userServiceBlockingStub.existsUserByEmail(stringMessage);
     }
 
-    public void registerUser(UserDatabaseService.UserMessage userMessage){
-        userServiceBlockingStub.registerUser(userMessage);
+    public UserDatabaseService.BooleanMessage registerUser(UserDatabaseService.UserMessage userMessage){
+        return userServiceBlockingStub.registerUser(userMessage);
     }
 }
