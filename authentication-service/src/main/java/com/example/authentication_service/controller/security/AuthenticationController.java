@@ -16,9 +16,8 @@ public class AuthenticationController {
     private final UserService userService;
 
     @GetMapping("/login")
-    public ResponseEntity<String> login(@RequestParam("email") String email){
-        userService.existsUserByEmail(email);
-        return ResponseEntity.ok("login");
+    public ResponseEntity<String> login(@RequestParam("email") String email, @RequestParam("password") String password){
+        return ResponseEntity.ok(userService.authenticateUser(email, password));
     }
 
     @PostMapping("/registration")
