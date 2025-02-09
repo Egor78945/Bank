@@ -11,7 +11,4 @@ public record UserRegistrationDTO(@NotNull @Email(message = "Invalid email forma
                                   @NotNull @Size(min = 2, max = 20, message = "Surname length must to be less 21 and more 1 symbols.") @Letters(message = "Surname must contains only letters.") String surname,
                                   @NotNull @Min(value = 14, message = "Age must to be more or equal 14 years.") @Max(value = 120, message = "Age must to be less or equal 120 years.") Integer age,
                                   @NotNull @Size(min = 3, max = 50, message = "City must to be less 51 and more 2 symbols.") String city) {
-    public UserRegistrationDTO encodePassword(String encodedPassword) {
-        return new UserRegistrationDTO(email, encodedPassword, name, surname, age, city);
-    }
 }
