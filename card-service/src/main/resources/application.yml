@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: ${CARD_SERVICE_APPLICATION_NAME}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${SERVICE_DISCOVERY_HOST}:${SERVICE_DISCOVERY_PORT}/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+grpc:
+  client:
+    card-grpc-service:
+      address: discovery:///${CARD_SERVICE_APPLICATION_NAME}
+      negotiation-type: plaintext
+
+server:
+  port: ${CARD_SERVICE_PORT}
