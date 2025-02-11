@@ -1,6 +1,6 @@
-package com.example.authentication_service.controller.security.advice;
+package com.example.card_service.controller.card.advice;
 
-import com.example.authentication_service.controller.security.advice.handler.AuthenticationControllerExceptionHandler;
+import com.example.card_service.controller.card.advice.handler.CardControllerExceptionHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.HashMap;
 import java.util.Map;
 
-@ControllerAdvice(annotations = AuthenticationControllerExceptionHandler.class)
-public class AuthenticationControllerAdvice {
+@ControllerAdvice(annotations = CardControllerExceptionHandler.class)
+public class CardControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> validationExceptionHandler(MethodArgumentNotValidException e) {
         var map = new HashMap<String, String>();
@@ -24,6 +24,6 @@ public class AuthenticationControllerAdvice {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> runtimeExceptionHandler(RuntimeException e){
-        return new ResponseEntity<>(Map.of("error",e.getMessage()), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

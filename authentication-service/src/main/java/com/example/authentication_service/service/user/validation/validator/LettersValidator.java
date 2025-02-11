@@ -1,6 +1,6 @@
-package com.example.authentication_service.service.validation.user.validator;
+package com.example.authentication_service.service.user.validation.validator;
 
-import com.example.authentication_service.service.validation.user.annotation.Letters;
+import com.example.authentication_service.service.user.validation.annotation.Letters;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

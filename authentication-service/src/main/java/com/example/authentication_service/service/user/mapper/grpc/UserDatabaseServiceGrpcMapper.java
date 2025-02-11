@@ -29,7 +29,7 @@ public class UserDatabaseServiceGrpcMapper {
 
     public static UserDatabaseService.UserMessage mapTo(UserRegistrationDTO userRegistrationDTO) {
         return UserDatabaseService.UserMessage.newBuilder()
-                .setEmail(userRegistrationDTO.email())
+                .setEmail(userRegistrationDTO.email().toLowerCase())
                 .setPassword(userRegistrationDTO.password())
                 .setName(userRegistrationDTO.name())
                 .setSurname(userRegistrationDTO.surname())

@@ -9,10 +9,14 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: authentication-service
+        - id: ${AUTHENTICATION_SERVICE_APPLICATION_NAME}
           uri: lb://${AUTHENTICATION_SERVICE_APPLICATION_NAME}
           predicates:
             - Path=/auth/**
+        - id: ${CARD_SERVICE_APPLICATION_NAME}
+          uri: lb://${CARD_SERVICE_APPLICATION_NAME}
+          predicates:
+            - Path=/card/**
 
 eureka:
   client:

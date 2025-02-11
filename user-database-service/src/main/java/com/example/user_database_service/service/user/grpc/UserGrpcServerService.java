@@ -45,4 +45,17 @@ public class UserGrpcServerService extends UserServiceGrpc.UserServiceImplBase {
         responseObserver.onNext(UserDatabaseServiceGrpcMapper.mapTo(true));
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void existsCardByCardTypeIdAndUserId(UserDatabaseService.DoubleLongMessage request, StreamObserver<UserDatabaseService.BooleanMessage> responseObserver) {
+        responseObserver.onNext(UserDatabaseServiceGrpcMapper.mapTo(userCardService.existsCardByCardTypeIdAndUserId(request.getLong1(), request.getLong2())));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void registerCardByCardTypeIdAndUserId(UserDatabaseService.CardRegistrationMessage request, StreamObserver<UserDatabaseService.BooleanMessage> responseObserver) {
+        userCardService.registerCardByCardTypeIdAndUserId(request.getCardId(), request.getUserId(), request.getBalance(), request.getStatus());
+        responseObserver.onNext(UserDatabaseServiceGrpcMapper.mapTo(true));
+        responseObserver.onCompleted();
+    }
 }

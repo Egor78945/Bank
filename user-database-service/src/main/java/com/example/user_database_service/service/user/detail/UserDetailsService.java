@@ -20,10 +20,13 @@ public class UserDetailsService {
                 .set(Tables.USER_DETAILS.AGE, age)
                 .set(Tables.USER_DETAILS.CITY, city)
                 .set(Tables.USER_DETAILS.REGISTERED_AT, Instant.ofEpochMilli(registeredAt).atZone(ZoneId.systemDefault()).toLocalDateTime())
-                .set(Tables.USER_DETAILS.STATUS, status);
+                .set(Tables.USER_DETAILS.STATUS, status)
+                .execute();
     }
 
     public void removeUserDetailsByUserId(long userId){
-        dslContext.deleteFrom(Tables.USER_DETAILS).where(Tables.USER_DETAILS.USER_ID.eq(userId));
+        dslContext.deleteFrom(Tables.USER_DETAILS)
+                .where(Tables.USER_DETAILS.USER_ID.eq(userId))
+                .execute();
     }
 }

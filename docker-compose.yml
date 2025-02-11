@@ -53,8 +53,8 @@ services:
     env_file:
       - .env
     depends_on:
-      - service-discovery
       - postgres-users
+      - api-gateway-service
     restart: on-failure
     networks:
       - test
@@ -110,7 +110,6 @@ services:
     networks:
       - test
     depends_on:
-      - api-gateway-service
       - user-database-service
       - keycloak
 
@@ -126,5 +125,19 @@ services:
     networks:
       - test
     depends_on:
-      - api-gateway-service
+      - user-database-service
       - keycloak
+
+  card-service:
+    build:
+      context: ./card-service
+      dockerfile: Dockerfile
+      args:
+        JAVA_VERSION: ${JAVA_VERSION}
+    env_file:
+      - .env
+    restart: on-failure
+    networks:
+      - test
+    depends_on:
+      - user-database-service

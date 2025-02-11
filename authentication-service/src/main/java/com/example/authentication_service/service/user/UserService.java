@@ -29,13 +29,16 @@ public class UserService {
     public void registerUser(UserRegistrationDTO userRegistrationDTO) {
         long savedUserId = userGrpcClientService.registerUser(UserDatabaseServiceGrpcMapper.mapTo(userRegistrationDTO)).getLong();
         try {
-            keycloakService.createUser(userRegistrationDTO.email(), userRegistrationDTO.password(), userRegistrationDTO.name(), userRegistrationDTO.surname());
+            keycloakService.createUser(userRegistrationDTO.email().toLowerCase(), userRegistrationDTO.password(), userRegistrationDTO.name(), userRegistrationDTO.surname());
         } catch (Exception e) {
             userGrpcClientService.removeUser(UserDatabaseServiceGrpcMapper.mapTo(savedUserId));
         }
     }
 
     public String authenticateUser(String email, String password){
+        if(!existsUserByEmail(email)){
+            throw new RuntimeException("user is not exists");
+        }
         String clientSecret = keycloakService.getClientSecret(keycloakEnvironment.getKEYCLOAK_CLIENT_AUTHENTICATION_SERVICE_ID());
         String url = String.format("http://%s:%s/realms/%s/protocol/openid-connect/token", keycloakEnvironment.getKEYCLOAK_SERVER_HOST(), keycloakEnvironment.getKEYCLOAK_SERVER_PORT(), keycloakEnvironment.getKEYCLOAK_REALM_BANK_NAME());
 

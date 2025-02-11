@@ -1,7 +1,7 @@
-package com.example.authentication_service.service.validation.user.validator;
+package com.example.authentication_service.service.user.validation.validator;
 
 import com.example.authentication_service.service.user.UserService;
-import com.example.authentication_service.service.validation.user.annotation.UniqueEmail;
+import com.example.authentication_service.service.user.validation.annotation.UniqueEmail;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +14,6 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
-        return email != null && !email.isBlank() && !userService.existsUserByEmail(email);
+        return email != null && !email.isBlank() && !userService.existsUserByEmail(email.toLowerCase());
     }
 }

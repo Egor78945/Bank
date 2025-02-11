@@ -35,4 +35,13 @@ databaseChangeLog:
                     foreignKeyName: card_type_id_card_fk
                     referencedTableName: ${USER_DATABASE_SERVICE_TABLE_CARD_TYPES}
                     referencedColumnNames: id
-
+              - column:
+                  name: balance
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: boolean
+                  constraints:
+                    nullable: false

@@ -11,8 +11,8 @@ eureka:
 
 grpc:
   client:
-    card-grpc-service:
-      address: discovery:///${CARD_SERVICE_APPLICATION_NAME}
+    user-grpc-service:
+      address: discovery:///${USER_DATABASE_SERVICE_APPLICATION_NAME}
       negotiation-type: plaintext
 
 server:

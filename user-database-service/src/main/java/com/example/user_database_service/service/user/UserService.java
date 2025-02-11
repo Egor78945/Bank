@@ -21,11 +21,15 @@ public class UserService {
                 .insertInto(Tables.USERS)
                 .set(Tables.USERS.EMAIL, email)
                 .set(Tables.USERS.PASSWORD, password)
-                .returning(Tables.USERS.ID).fetchOne()
+                .returning(Tables.USERS.ID)
+                .fetchOne()
                 .get(Tables.USERS.ID);
     }
 
     public void removeUserById(long id){
-        dslContext.deleteFrom(Tables.USERS).where(Tables.USERS.ID.eq(id));
+        dslContext
+                .deleteFrom(Tables.USERS)
+                .where(Tables.USERS.ID.eq(id))
+                .execute();
     }
 }

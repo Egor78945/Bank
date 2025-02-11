@@ -2,3 +2,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: ./v2-create-roles-table-changelog.yml
+  - include:
+      relativeToChangelogFile: true
+      file: ./v2-fill-roles-table-changelog.yml

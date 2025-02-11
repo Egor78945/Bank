@@ -1,6 +1,6 @@
-package com.example.authentication_service.service.validation.user.annotation;
+package com.example.authentication_service.service.user.validation.annotation;
 
-import com.example.authentication_service.service.validation.user.validator.LettersValidator;
+import com.example.authentication_service.service.user.validation.validator.LettersValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Letters {
-    String message() default "The string must to contains only letters.";
+    String message() default "the string must to contains only letters";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
