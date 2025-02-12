@@ -9,6 +9,10 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
 
+card:
+  credit:
+    limit: ${CARD_SERVICE_CARD_CREDIT_LIMIT}
+
 grpc:
   client:
     user-grpc-service:
