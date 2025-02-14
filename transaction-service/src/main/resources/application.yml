@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: ${TRANSACTION_SERVICE_APPLICATION_NAME}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${SERVICE_DISCOVERY_HOST}:${SERVICE_DISCOVERY_PORT}/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+grpc:
+  client:
+    user-grpc-service:
+      address: discovery:///${USER_DATABASE_SERVICE_APPLICATION_NAME}
+      negotiation-type: plaintext
+
+server:
+  port: ${TRANSACTION_SERVICE_PORT}
