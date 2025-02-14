@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package com.example.grpc.user;
+
+message StringMessage {
+  string string = 1;
+}
+
+message LongMessage {
+  int64 long = 1;
+}
+
+message BooleanMessage {
+  bool boolean = 1;
+}
+
+message DoubleLongMessage {
+  int64 long1 = 1;
+  int64 long2 = 2;
+}
+
+message CardRegistrationMessage {
+  int64 cardId = 1;
+  int64 userId = 2;
+  double balance = 3;
+  bool status = 4;
+}
+
+message UserMessage {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+  string surname = 4;
+  int32 age = 5;
+  string city = 6;
+  bool status = 7;
+  int64 registeredAt = 8;
+  repeated int64 roles = 9;
+}
+
+message UserCredentialsMessage {
+  string password = 1;
+  repeated string roles = 2;
+}
+
+service UserService {
+  rpc existsUserByEmail(StringMessage) returns (BooleanMessage);
+  rpc registerUser(UserMessage) returns (LongMessage);
+  rpc getUserCredentialsByEmail(StringMessage) returns (UserCredentialsMessage);
+  rpc removeUserById(LongMessage) returns (BooleanMessage);
+  rpc existsCardByCardTypeIdAndUserId(DoubleLongMessage) returns (BooleanMessage);
+  rpc registerCardByCardTypeIdAndUserId(CardRegistrationMessage) returns (BooleanMessage);
+}
