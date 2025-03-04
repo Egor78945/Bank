@@ -14,6 +14,10 @@ message BooleanMessage {
   bool boolean = 1;
 }
 
+message DoubleMessage {
+  double doubl = 1;
+}
+
 message DoubleLongMessage {
   int64 long1 = 1;
   int64 long2 = 2;
@@ -48,6 +52,11 @@ service UserService {
   rpc registerUser(UserMessage) returns (LongMessage);
   rpc getUserCredentialsByEmail(StringMessage) returns (UserCredentialsMessage);
   rpc removeUserById(LongMessage) returns (BooleanMessage);
+}
+
+service CardService {
   rpc existsCardByCardTypeIdAndUserId(DoubleLongMessage) returns (BooleanMessage);
   rpc registerCardByCardTypeIdAndUserId(CardRegistrationMessage) returns (BooleanMessage);
+  rpc getCardBalanceByCardId(LongMessage) returns (DoubleMessage);
+  rpc getCardTypeIdByCardId(LongMessage) returns (LongMessage);
 }

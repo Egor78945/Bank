@@ -17,4 +17,10 @@ public class UserDatabaseServiceGrpcMapper {
                 .setStatus(status)
                 .build();
     }
+
+    public static UserDatabaseService.LongMessage mapTo(long lonk){
+        return UserDatabaseService.LongMessage.newBuilder()
+                .setLong(lonk)
+                .build();
+    }
 }

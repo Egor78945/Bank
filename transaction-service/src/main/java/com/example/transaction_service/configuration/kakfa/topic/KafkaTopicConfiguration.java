@@ -15,7 +15,7 @@ public class KafkaTopicConfiguration {
     @Bean
     public NewTopic transactionTopic(){
         return TopicBuilder
-                .name(kafkaEnvironment.getKAFKA_TOPIC_TRANSACTION())
+                .name(kafkaEnvironment.getKAFKA_TOPIC_TRANSACTION_NAME())
                 .replicas(kafkaEnvironment.getKAFKA_REPLICATION_FACTOR())
                 .partitions(kafkaEnvironment.getKAFKA_REPLICATION_FACTOR())
                 .build();

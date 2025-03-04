@@ -2,6 +2,21 @@ spring:
   application:
     name: ${CARD_SERVICE_APPLICATION_NAME}
 
+  kafka:
+    bootstrap-servers: ${KAFKA1_SERVER_HOST}:${KAFKA1_SERVER_PORT_INNER},${KAFKA2_SERVER_HOST}:${KAFKA2_SERVER_PORT_INNER}
+    listener:
+      ack-mode: record
+    consumer:
+      auto-offset-reset: earliest
+    topic:
+      transaction:
+        id: ${TRANSACTION_SERVICE_KAFKA_TOPIC_TRANSACTION_ID}
+        name: ${TRANSACTION_SERVICE_KAFKA_TOPIC_TRANSACTION_NAME}
+    streams:
+      replication-factor: ${KAFKA_SERVER_REPLICATION_FACTOR}
+    producer:
+      retries: ${KAFKA_PRODUCER_RETRY_COUNT}
+
 eureka:
   client:
     service-url:

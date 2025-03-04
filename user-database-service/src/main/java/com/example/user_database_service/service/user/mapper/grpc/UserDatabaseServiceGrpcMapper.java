@@ -28,4 +28,10 @@ public class UserDatabaseServiceGrpcMapper {
                 .setLong(lonk)
                 .build();
     }
+
+    public static UserDatabaseService.DoubleMessage mapTo(double doubl){
+        return UserDatabaseService.DoubleMessage.newBuilder()
+                .setDoubl(doubl)
+                .build();
+    }
 }

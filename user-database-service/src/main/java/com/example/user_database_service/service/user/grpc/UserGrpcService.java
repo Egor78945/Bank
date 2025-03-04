@@ -13,7 +13,7 @@ import net.devh.boot.grpc.server.service.GrpcService;
 
 @GrpcService
 @RequiredArgsConstructor
-public class UserGrpcServerService extends UserServiceGrpc.UserServiceImplBase {
+public class UserGrpcService extends UserServiceGrpc.UserServiceImplBase {
     private final UserService userService;
     private final UserDetailsService userDetailsService;
     private final UserRoleService userRoleService;
@@ -42,19 +42,6 @@ public class UserGrpcServerService extends UserServiceGrpc.UserServiceImplBase {
         userDetailsService.removeUserDetailsByUserId(request.getLong());
         userCardService.removeUserCardsByUserId(request.getLong());
         userService.removeUserById(request.getLong());
-        responseObserver.onNext(UserDatabaseServiceGrpcMapper.mapTo(true));
-        responseObserver.onCompleted();
-    }
-
-    @Override
-    public void existsCardByCardTypeIdAndUserId(UserDatabaseService.DoubleLongMessage request, StreamObserver<UserDatabaseService.BooleanMessage> responseObserver) {
-        responseObserver.onNext(UserDatabaseServiceGrpcMapper.mapTo(userCardService.existsCardByCardTypeIdAndUserId(request.getLong1(), request.getLong2())));
-        responseObserver.onCompleted();
-    }
-
-    @Override
-    public void registerCardByCardTypeIdAndUserId(UserDatabaseService.CardRegistrationMessage request, StreamObserver<UserDatabaseService.BooleanMessage> responseObserver) {
-        userCardService.registerCardByCardTypeIdAndUserId(request.getCardId(), request.getUserId(), request.getBalance(), request.getStatus());
         responseObserver.onNext(UserDatabaseServiceGrpcMapper.mapTo(true));
         responseObserver.onCompleted();
     }

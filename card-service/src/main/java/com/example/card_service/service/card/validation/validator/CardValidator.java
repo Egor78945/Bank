@@ -1,7 +1,7 @@
 package com.example.card_service.service.card.validation.validator;
 
 import com.example.card_service.service.card.validation.annotation.Card;
-import com.example.card_service.service.user.mapper.CardMapper;
+import com.example.card_service.service.card.mapper.CardMapper;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

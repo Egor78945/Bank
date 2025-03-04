@@ -8,9 +8,10 @@ spring:
       ack-mode: record
     consumer:
       auto-offset-reset: earliest
-      group-id: ${TRANSACTION_SERVICE_KAFKA_CONSUMER_GROUP_ID}
+      group-id: transaction-service-group-id
     topic:
-      transaction: ${TRANSACTION_SERVICE_KAFKA_TOPIC_TRANSACTION}
+      transaction:
+        name: ${TRANSACTION_SERVICE_KAFKA_TOPIC_TRANSACTION_NAME}
     streams:
       replication-factor: ${KAFKA_SERVER_REPLICATION_FACTOR}
 
