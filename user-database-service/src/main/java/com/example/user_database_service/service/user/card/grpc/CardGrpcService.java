@@ -35,5 +35,6 @@ public class CardGrpcService extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void getCardTypeIdByCardId(UserDatabaseService.LongMessage request, StreamObserver<UserDatabaseService.LongMessage> responseObserver) {
         responseObserver.onNext(UserDatabaseServiceGrpcMapper.mapTo(userCardService.getCardTypeIdByCardId(request.getLong())));
+        responseObserver.onCompleted();
     }
 }

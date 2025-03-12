@@ -45,14 +45,18 @@ public class UserCardService {
     }
 
     public long getCardTypeIdByCardId(long cardId){
-        return
+        System.out.println("getCardTypeId");
+        long id =
                 dslContext
                         .select(Tables.CARD_TYPES.ID)
                         .from(Tables.CARD_TYPES)
                         .join(Tables.USER_CARDS)
                         .on(Tables.CARD_TYPES.ID.eq(Tables.USER_CARDS.CARD_TYPE_ID))
+                        .where(Tables.USER_CARDS.ID.eq(cardId))
                         .fetchOptional()
                         .orElseThrow(() -> new RuntimeException("there is a problem while get card type by card id"))
                         .get(Tables.CARD_TYPES.ID);
+        System.out.println(id);
+        return id;
     }
 }

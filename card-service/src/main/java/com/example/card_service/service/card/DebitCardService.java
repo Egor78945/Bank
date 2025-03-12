@@ -32,7 +32,7 @@ public class DebitCardService extends CardService {
 
     @Override
     public void transaction(long cardFromId, long cardToId, double amount) {
-        if (cardTransactionValidator.canSend(cardFromId, amount)) {
+        if (cardTransactionValidator.canSend(cardFromId, cardToId, amount)) {
             long cardToCardTypeId = cardGrpcClientService.getCardTypeIdByCardId(UserDatabaseServiceGrpcMapper.mapTo(cardToId)).getLong();
             if (cardTransactionValidatorRouter.getValidatorMap().get(cardToCardTypeId).canReceive(cardToId, amount)) {
                 kafkaTemplateSender.send(kafkaTemplateSender.getKafkaEnvironment().getKAFKA_TOPIC_TRANSACTION_NAME(), LocalDateTime.now().toString(), String.format("%s/%s/%s", cardFromId, cardToId, amount));

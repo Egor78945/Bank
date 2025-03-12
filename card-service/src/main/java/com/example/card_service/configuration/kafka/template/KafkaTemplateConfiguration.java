@@ -14,7 +14,7 @@ public class KafkaTemplateConfiguration {
 
     @Bean
     public KafkaTemplate<String, String> stringKafkaTemplate(ProducerFactory<String, String> producerFactory) {
-        KafkaTemplate<String, String> kafkaTemplate =  new KafkaTemplate<>(producerFactory);
+        KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<>(producerFactory);
         kafkaTemplate.setTransactionIdPrefix(kafkaEnvironment.getKAFKA_TOPIC_TRANSACTION_ID());
 
         return kafkaTemplate;

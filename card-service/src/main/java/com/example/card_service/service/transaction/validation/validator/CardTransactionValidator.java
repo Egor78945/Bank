@@ -9,8 +9,8 @@ public abstract class CardTransactionValidator {
     public CardTransactionValidator(CardGrpcClientService cardGrpcClientService) {
         this.cardGrpcClientService = cardGrpcClientService;
     }
-    public boolean canSend(long fromId, double amount) {
-        return amount > 0 && cardGrpcClientService.getCardBalanceByCardId(UserDatabaseServiceGrpcMapper.mapTo(fromId)).getDoubl() - amount >= 0;
+    public boolean canSend(long fromId, long toId, double amount) {
+        return fromId != toId && amount > 0 && cardGrpcClientService.getCardBalanceByCardId(UserDatabaseServiceGrpcMapper.mapTo(fromId)).getDoubl() - amount >= 0;
     }
     public abstract boolean canReceive(long toId, double amount);
 }

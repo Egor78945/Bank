@@ -18,10 +18,9 @@ public class StringKafkaTemplateSender extends KafkaTemplateSender {
     @Override
     @Transactional("stringProducerTransactionManager")
     public void send(String topic, String key, Object value) {
-        if(value instanceof String) {
-            kafkaTemplate.send(topic, key, (String) value);
-        } else {
-            throw new ArgumentRequiredException(String.class, value.getClass());
-        }
+        System.out.println("before if block");
+        System.out.println("before sending");
+        kafkaTemplate.send(topic, key, (String) value);
+        System.out.println("after sending");
     }
 }

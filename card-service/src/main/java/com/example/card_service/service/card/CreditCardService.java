@@ -34,9 +34,12 @@ public class CreditCardService extends CardService {
 
     @Override
     public void transaction(long cardFromId, long cardToId, double amount) {
-        if(cardTransactionValidator.canSend(cardFromId, amount)){
+        if(cardTransactionValidator.canSend(cardFromId, cardToId, amount)){
+            System.out.println("trying to get cardTo card type id");
             long cardToCardTypeId = cardGrpcClientService.getCardTypeIdByCardId(UserDatabaseServiceGrpcMapper.mapTo(cardToId)).getLong();
+            System.out.println("got type id, trying validate...");
             if(cardTransactionValidatorRouter.getValidatorMap().get(cardToCardTypeId).canReceive(cardToId, amount)){
+                System.out.println("is valid, trying to send...");
                 kafkaTemplateSender.send(kafkaTemplateSender.getKafkaEnvironment().getKAFKA_TOPIC_TRANSACTION_NAME(), LocalDateTime.now().toString(), String.format("%s/%s/%s", cardFromId, cardToId, amount));
             }
         } else {
